@@ -7,16 +7,16 @@ https://github.com/knadh/go-pop3 において POP3 サーバーへのコマン�
 
 A simple Go POP3 client library for connecting and reading mails from POP3 servers. This is a full rewrite of [TheCreeper/go-pop3](https://github.com/TheCreeper/go-pop3) with bug fixes and new features.
 
-
 ## Install
-`go get -u github.com/knadh/go-pop3`
 
+`go get -u github.com/myuoncorp/go-pop3`
 
 ## Example
+
 ```go
 import (
 	"fmt"
-	"github.com/knadh/go-pop3"
+	"github.com/myuoncorp/go-pop3"
 )
 
 func main() {
@@ -69,8 +69,8 @@ func main() {
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/knadh/go-pop3)](https://pkg.go.dev/github.com/knadh/go-pop3)
 
-
 ### To-do: tests
+
 Setup a Docker test environment that runs [InBucket](https://github.com/inbucket/inbucket) POP3 + SMTP server to run a dummy POP3 server and test all the commands in the lib.
 
 Licensed under the MIT License.
