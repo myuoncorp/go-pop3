@@ -1,3 +1,8 @@
+# For What?
+
+https://github.com/knadh/go-pop3 において POP3 サーバーへのコマンドレスポンスをパースする処理で不都合な実装があったため改修した。
+具体的には正常系のレスポンスとして "+" を許容するようにした。
+
 # go-pop3
 
 A simple Go POP3 client library for connecting and reading mails from POP3 servers. This is a full rewrite of [TheCreeper/go-pop3](https://github.com/TheCreeper/go-pop3) with bug fixes and new features.
