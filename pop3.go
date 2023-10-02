@@ -53,6 +53,7 @@ var (
 	lineBreak = []byte("\r\n")
 
 	respOK      = []byte("+OK")   // `+OK` without additional info
+	respOKToContinue      = []byte("+")   // `+`
 	respOKInfo  = []byte("+OK ")  // `+OK <info>`
 	respErr     = []byte("-ERR")  // `-ERR` without additional info
 	respErrInfo = []byte("-ERR ") // `-ERR <info>`
@@ -420,15 +421,18 @@ func parseResp(b []byte) ([]byte, error) {
 		return nil, nil
 	}
 
-	if bytes.Equal(b, respOK) {
+	switch {
+	case bytes.Equal(b, respOK):
 		return nil, nil
-	} else if bytes.HasPrefix(b, respOKInfo) {
+	case bytes.Equal(b, respOKToContinue):
+		return nil, nil
+	case bytes.HasPrefix(b, respOKInfo):
 		return bytes.TrimPrefix(b, respOKInfo), nil
-	} else if bytes.Equal(b, respErr) {
+	case bytes.Equal(b, respErr):
 		return nil, errors.New("unknown error (no info specified in response)")
-	} else if bytes.HasPrefix(b, respErrInfo) {
+	case bytes.HasPrefix(b, respErrInfo):
 		return nil, errors.New(string(bytes.TrimPrefix(b, respErrInfo)))
-	} else {
+	default:
 		return nil, fmt.Errorf("unknown response: %s. Neither -ERR, nor +OK", string(b))
 	}
 }
