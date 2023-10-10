@@ -55,6 +55,7 @@ var (
 	respOK      = []byte("+OK")   // `+OK` without additional info
 	respOKToContinue      = []byte("+")   // `+`
 	respOKInfo  = []byte("+OK ")  // `+OK <info>`
+	respOKToContinueInfo  = []byte("+ ")  // `+ <info>`
 	respErr     = []byte("-ERR")  // `-ERR` without additional info
 	respErrInfo = []byte("-ERR ") // `-ERR <info>`
 )
@@ -428,6 +429,8 @@ func parseResp(b []byte) ([]byte, error) {
 		return nil, nil
 	case bytes.HasPrefix(b, respOKInfo):
 		return bytes.TrimPrefix(b, respOKInfo), nil
+	case bytes.HasPrefix(b, respOKToContinueInfo):
+		return bytes.TrimPrefix(b, respOKToContinueInfo), nil
 	case bytes.Equal(b, respErr):
 		return nil, errors.New("unknown error (no info specified in response)")
 	case bytes.HasPrefix(b, respErrInfo):
